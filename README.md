@@ -62,6 +62,22 @@ src/
 
 Colors are defined as tokens in `src/index.css` (`app`, `surface`, `heading`). Light mode overrides the `slate` palette inside the `:root[data-theme="light"]` block, so to change the light theme colors you only need to edit that block.
 
+## Possible improvements
+
+- Unit toggle (°C / °F, km/h / mph)
+- Geolocation: detect the user's current location on first load
+- Hourly forecast for the whole day with a scrollable view or chart
+- Cache API responses and show saved-city weather without refetching on every visit
+- Reorder saved cities (drag and drop) and sync them across devices
+- Better weather icons (SVG) instead of emoji
+- Unit and component tests (Vitest + React Testing Library)
+- TypeScript migration
+- PWA support for offline use and installation
+
+## Author
+
+Made by [r0b-3rt](https://github.com/r0b-3rt).
+
 ## License
 
 Personal / educational project.
