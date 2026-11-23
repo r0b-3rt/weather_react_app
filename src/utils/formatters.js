@@ -9,11 +9,11 @@ export function formatTime(isoString) {
     return date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit", hour12: true });
 }
 
-export function formatDayName(dateString) {
+// dateString = "YYYY-MM-DD" in fusul orar al orasului; isToday vine din API (prima zi din prognoza).
+export function formatDayName(dateString, isToday = false) {
     if (!dateString) return "";
-    const date = new Date(dateString);
-    const today = new Date().toISOString().split("T")[0];
-    if (dateString === today) return "Today";
+    if (isToday) return "Today";
 
-    return date.toLocaleDateString("en-US", { weekday: "short" });
+    const [y, m, d] = dateString.split("-").map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString("en-US", { weekday: "short" });
 }

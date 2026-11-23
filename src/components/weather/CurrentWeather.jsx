@@ -7,9 +7,9 @@ export default function CurrentWeather({ weatherData }) {
     return (
         <div className="flex justify-between items-center py-4 px-2">
             <div>
-                <h1 className="text-3xl md:text-4xl font-bold text-white tracking-wide">{city.name}</h1>
+                <h1 className="text-3xl md:text-4xl font-bold text-heading tracking-wide">{city.name}</h1>
                 <p className="text-slate-400 text-sm mt-1">Chance of rain: {chanceOfRain}%</p>
-                <div className="text-5xl md:text-6xl font-extrabold text-white mt-8 tracking-tight">
+                <div className="text-5xl md:text-6xl font-extrabold text-heading mt-8 tracking-tight">
                     {formatTemp(current.temp)}
                 </div>
             </div>

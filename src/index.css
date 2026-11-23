@@ -1,8 +1,43 @@
 @import "tailwindcss";
 
+@theme {
+    --color-app: #0b131e;
+    --color-surface: #1e293b;
+    --color-heading: #ffffff;
+}
+
+/* Light mode: reface paleta slate si tokenii de tema */
+:root[data-theme="light"] {
+    color-scheme: light;
+    --color-app: #f1f5f9;
+    --color-surface: #ffffff;
+    --color-heading: #0f172a;
+
+    --color-slate-100: #1e293b;
+    --color-slate-200: #334155;
+    --color-slate-300: #475569;
+    --color-slate-400: #64748b;
+    --color-slate-500: #64748b;
+    --color-slate-600: #94a3b8;
+    --color-slate-700: #cbd5e1;
+    --color-slate-800: #e2e8f0;
+    --color-slate-900: #f1f5f9;
+
+    --color-sky-400: #0284c7;
+    --color-rose-300: #be123c;
+    --scroll-thumb: #cbd5e1;
+    --scroll-thumb-hover: #94a3b8;
+}
+
+:root {
+    color-scheme: dark;
+    --scroll-thumb: #1e293b;
+    --scroll-thumb-hover: #334155;
+}
+
 @layer base {
     body {
-        @apply bg-[#0b131e] text-slate-200 antialiased min-h-screen font-sans selection:bg-sky-500 selection:text-white;
+        @apply bg-app text-slate-200 antialiased min-h-screen font-sans selection:bg-sky-500 selection:text-white;
     }
 }
 
@@ -15,9 +50,9 @@
     background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: var(--scroll-thumb);
     border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: var(--scroll-thumb-hover);
 }

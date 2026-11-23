@@ -9,7 +9,10 @@ export function transformWeatherData(apiData, cityInfo) {
 
     // Extract next 6 hours starting from current hour
     const currentHourISO = apiData.current.time;
-    const currentHourIndex = apiData.hourly.time.findIndex(t => t.startsWith(currentHourISO.slice(0, 13))) || 0;
+    const currentHourIndex = Math.max(
+        0,
+        apiData.hourly.time.findIndex(t => t.startsWith(currentHourISO.slice(0, 13))),
+    );
 
     const hourly = apiData.hourly.time.slice(currentHourIndex, currentHourIndex + 6).map((time, idx) => {
         const realIndex = currentHourIndex + idx;

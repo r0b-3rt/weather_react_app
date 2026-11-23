@@ -2,35 +2,30 @@ import { useEffect, useState } from "react";
 import { fetchWeatherData } from "../services/weatherApi";
 
 export function useWeather(city) {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    // Rezultatul e legat de orasul pentru care a fost cerut; loading se deduce la randare.
+    const [result, setResult] = useState({ city: null, data: null, error: null });
 
     useEffect(() => {
-        let isMounted = true;
         if (!city) return;
-
-        setLoading(true);
-        setError(null);
+        let cancelled = false;
 
         fetchWeatherData(city)
-            .then(result => {
-                if (isMounted) {
-                    setData(result);
-                    setLoading(false);
-                }
+            .then(data => {
+                if (!cancelled) setResult({ city, data, error: null });
             })
             .catch(err => {
-                if (isMounted) {
-                    setError(err.message || "Error fetching weather data");
-                    setLoading(false);
-                }
+                if (!cancelled) setResult({ city, data: null, error: err.message || "Error fetching weather data" });
             });
 
         return () => {
-            isMounted = false;
+            cancelled = true;
         };
-    }, [city?.latitude, city?.longitude, city?.name]);
+    }, [city]);
 
-    return { data, loading, error };
+    const loading = !!city && result.city !== city;
+    return {
+        data: loading ? null : result.data,
+        loading,
+        error: loading ? null : result.error,
+    };
 }

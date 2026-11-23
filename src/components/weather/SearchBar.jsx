@@ -10,14 +10,16 @@ export default function SearchBar() {
     const wrapperRef = useRef(null);
 
     useEffect(() => {
+        let cancelled = false;
         const timer = setTimeout(async () => {
             if (query.trim().length >= 2) {
                 try {
                     const res = await searchCities(query);
+                    if (cancelled) return; // ignora raspunsuri vechi
                     setResults(res);
                     setIsOpen(true);
                 } catch {
-                    setResults([]);
+                    if (!cancelled) setResults([]);
                 }
             } else {
                 setResults([]);
@@ -25,7 +27,10 @@ export default function SearchBar() {
             }
         }, 300);
 
-        return () => clearTimeout(timer);
+        return () => {
+            cancelled = true;
+            clearTimeout(timer);
+        };
     }, [query]);
 
     useEffect(() => {
@@ -47,18 +52,19 @@ export default function SearchBar() {
     return (
         <div ref={wrapperRef} className="relative w-full z-30">
             <div className="relative flex items-center">
-                <span className="absolute left-4 text-slate-400">🔍</span>
+                <span className="absolute left-4 text-slate-400" aria-hidden="true">🔍</span>
                 <input
                     type="text"
                     value={query}
                     onChange={e => setQuery(e.target.value)}
                     placeholder="Search for cities..."
-                    className="w-full bg-[#1e293b]/70 border border-slate-800 text-slate-100 placeholder-slate-400 rounded-2xl py-3 pl-11 pr-4 focus:outline-none focus:border-sky-500/50 focus:ring-1 focus:ring-sky-500/50 transition-all text-sm"
+                    aria-label="Search for cities"
+                    className="w-full bg-surface/70 border border-slate-800 text-slate-100 placeholder-slate-400 rounded-2xl py-3 pl-11 pr-4 focus:outline-none focus:border-sky-500/50 focus:ring-1 focus:ring-sky-500/50 transition-all text-sm"
                 />
             </div>
 
             {isOpen && results.length > 0 && (
-                <ul className="absolute left-0 right-0 mt-2 bg-[#1e293b] border border-slate-800 rounded-2xl overflow-hidden shadow-2xl z-50">
+                <ul className="absolute left-0 right-0 mt-2 bg-surface border border-slate-800 rounded-2xl overflow-hidden shadow-2xl z-50">
                     {results.map(item => (
                         <li key={item.id}>
                             <button

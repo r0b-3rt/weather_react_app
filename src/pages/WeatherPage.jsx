@@ -14,7 +14,7 @@ export default function WeatherPage() {
     const { data, loading, error } = useWeather(selectedCity);
     const { addCity, isCitySaved } = useSavedCities();
 
-    const isSaved = selectedCity ? isCitySaved(selectedCity.id) : false;
+    const isSaved = selectedCity ? isCitySaved(selectedCity) : false;
 
     return (
         <div className="flex flex-col gap-6 h-full">

@@ -15,7 +15,7 @@ export default function CitiesPage({ setActiveTab }) {
         <div className="flex flex-col gap-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-bold text-white">Saved Cities</h1>
+                    <h1 className="text-3xl font-bold text-heading">Saved Cities</h1>
                     <p className="text-sm text-slate-400 mt-1">Manage your favorite locations</p>
                 </div>
             </div>

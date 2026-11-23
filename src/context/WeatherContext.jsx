@@ -1,12 +1,14 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import { DEFAULT_CITY } from "../constants/config";
 
-const WeatherContext = createContext();
+const WeatherContext = createContext(null);
 
 export function WeatherProvider({ children }) {
     const [selectedCity, setSelectedCity] = useState(DEFAULT_CITY);
 
-    return <WeatherContext.Provider value={{ selectedCity, setSelectedCity }}>{children}</WeatherContext.Provider>;
+    const value = useMemo(() => ({ selectedCity, setSelectedCity }), [selectedCity]);
+
+    return <WeatherContext.Provider value={value}>{children}</WeatherContext.Provider>;
 }
 
 export function useWeatherContext() {

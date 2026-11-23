@@ -8,13 +8,24 @@ export default function CityCard({ city, onSelect, onDelete }) {
 
     return (
         <Card className="hover:border-slate-700 transition-all duration-200 cursor-pointer group relative">
-            <div className="flex justify-between items-center" onClick={() => onSelect(city)}>
+            <div
+                className="flex justify-between items-center"
+                role="button"
+                tabIndex={0}
+                onClick={() => onSelect(city)}
+                onKeyDown={e => {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onSelect(city);
+                    }
+                }}
+            >
                 <div>
-                    <h3 className="text-xl font-bold text-white group-hover:text-sky-400 transition-colors">
+                    <h3 className="text-xl font-bold text-heading group-hover:text-sky-400 transition-colors">
                         {city.name}
                     </h3>
                     <p className="text-xs text-slate-400 mt-1">{city.country}</p>
-                    <div className="text-3xl font-extrabold text-white mt-4">
+                    <div className="text-3xl font-extrabold text-heading mt-4">
                         {loading ? "--°" : formatTemp(data?.current?.temp)}
                     </div>
                 </div>
@@ -31,6 +42,7 @@ export default function CityCard({ city, onSelect, onDelete }) {
                 }}
                 className="absolute top-4 right-4 text-slate-500 hover:text-rose-400 transition-colors p-1"
                 title="Remove city"
+                aria-label={`Remove ${city.name}`}
             >
                 ✕
             </button>

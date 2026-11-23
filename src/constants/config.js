@@ -10,3 +10,4 @@ export const DEFAULT_CITY = {
 };
 
 export const LOCAL_STORAGE_KEY_CITIES = "weather_app_saved_cities";
+export const LOCAL_STORAGE_KEY_THEME = "weather_app_theme";

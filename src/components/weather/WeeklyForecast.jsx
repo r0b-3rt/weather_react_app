@@ -8,7 +8,7 @@ export default function WeeklyForecast({ daily }) {
                 <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">7-Day Forecast</h3>
                 <div className="divide-y divide-slate-800/40">
                     {daily.map((day, idx) => (
-                        <DayRow key={idx} dayData={day} />
+                        <DayRow key={day.date} dayData={day} isToday={idx === 0} />
                     ))}
                 </div>
             </div>
